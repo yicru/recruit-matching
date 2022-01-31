@@ -1,4 +1,4 @@
-FROM ruby:3.0.0
+FROM ruby:3.1.0
 
 RUN wget --quiet -O - /tmp/pubkey.gpg https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo 'deb http://dl.yarnpkg.com/debian/ stable main' > /etc/apt/sources.list.d/yarn.list
