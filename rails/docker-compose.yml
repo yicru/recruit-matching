@@ -1,0 +1,28 @@
+version: '3'
+services:
+  app:
+    build:
+      dockerfile: .docker/Dockerfile
+      context: .
+    command: bash -c "rm -f ./tmp/pids/server.pid && bundle exec rails s -p 4000 -b '0.0.0.0'"
+    volumes:
+      - .:/app
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mysql
+    environment:
+      RAILS_ENV: development
+      EDITOR: vim
+      RAILS_SERVE_STATIC_FILES: ON
+      RAILS_LOG_TO_STDOUT: ON
+  mysql:
+    image: mysql:8.0
+    volumes:
+      - db-volume:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+volumes:
+  db-volume:
