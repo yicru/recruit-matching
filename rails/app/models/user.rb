@@ -4,6 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :companies_users, dependent: :destroy
+  has_many :companies, through: :companies_users
+
   enum role: { general: 0, employee: 1, admin: 2 }
 
   validates :name, presence: true, length: { in: 1..255 }
