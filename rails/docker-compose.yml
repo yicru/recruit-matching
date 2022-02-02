@@ -4,7 +4,7 @@ services:
     build:
       dockerfile: .docker/Dockerfile
       context: .
-    command: bash -c "rm -f ./tmp/pids/server.pid && bundle exec rails s -p 4000 -b '0.0.0.0'"
+    command: bash -c "bundle install && rm -f ./tmp/pids/server.pid && bundle exec rails s -p 4000 -b '0.0.0.0'"
     volumes:
       - .:/app
       - ./.bundle:/usr/local/bundle
