@@ -1,5 +1,6 @@
 module Types
   class MutationType < Types::BaseObject
+    field :unlike, mutation: Mutations::Unlike
     field :like, mutation: Mutations::Like
     field :login, mutation: Mutations::Login
     field :create_company, mutation: Mutations::CreateCompany
