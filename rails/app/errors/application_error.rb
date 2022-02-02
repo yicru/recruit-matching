@@ -7,4 +7,13 @@ module ApplicationError
       super(message)
     end
   end
+
+  class LogicError < GraphQL::ExecutionError
+    def initialize(message = 'Error Occurred', ast_node: nil, options: nil, extensions: nil)
+      @ast_node = ast_node
+      @options = options
+      @extensions = extensions
+      super(message)
+    end
+  end
 end
