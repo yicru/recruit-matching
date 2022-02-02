@@ -8,9 +8,11 @@ class GraphqlController < ApplicationController
     variables = prepare_variables(params[:variables])
     query = params[:query]
     operation_name = params[:operationName]
+
+    current_user = user_id_in_token? ? User.find(auth_token[:id]) : nil
+
     context = {
-      # Query context goes here, for example:
-      # current_user: current_user,
+      current_user: current_user,
     }
     result = AppSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
@@ -46,5 +48,17 @@ class GraphqlController < ApplicationController
     logger.error e.backtrace.join("\n")
 
     render json: { errors: [{ message: e.message, backtrace: e.backtrace }], data: {} }, status: 500
+  end
+
+  def http_token
+    @http_token ||= (request.headers['Authorization'].split(' ').last if request.headers['Authorization'].present?)
+  end
+
+  def auth_token
+    @auth_token ||= JsonWebToken.decode(http_token)
+  end
+
+  def user_id_in_token?
+    http_token && auth_token && auth_token[:id].to_i
   end
 end

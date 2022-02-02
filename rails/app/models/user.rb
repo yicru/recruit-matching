@@ -18,4 +18,8 @@ class User < ApplicationRecord
                           exp: (Time.zone.now + 2.weeks).to_i
                         })
   end
+
+  def admin?
+    role == 'admin'
+  end
 end
