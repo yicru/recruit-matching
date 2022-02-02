@@ -92,6 +92,7 @@ GEM
     io-wait (0.2.1)
     irb (1.4.1)
       reline (>= 0.3.0)
+    jwt (2.3.0)
     loofah (2.13.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -185,6 +186,7 @@ DEPENDENCIES
   debug
   devise
   graphql
+  jwt
   mysql2 (~> 0.5)
   puma (~> 5.0)
   rack-cors

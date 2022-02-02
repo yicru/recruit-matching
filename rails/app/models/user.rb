@@ -11,4 +11,11 @@ class User < ApplicationRecord
 
   validates :name, presence: true, length: { in: 1..255 }
   validates :email, presence: true, length: { in: 1..255 }, uniqueness: true
+
+  def token
+    JsonWebToken.encode({
+                          id: id,
+                          exp: (Time.zone.now + 2.weeks).to_i
+                        })
+  end
 end
